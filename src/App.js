@@ -29,8 +29,12 @@ const App = props => {
       <MuiThemeProvider theme={theme}>
         <div className={classes.App}>
           <HashRouter>
-            <MainRouter className={classes.tabs} />
-            <MainTabs className={classes.content} />
+            <div className={classes.content}>
+              <MainRouter />
+            </div>
+            <div className={classes.navigation}>
+              <MainTabs className={classes.tabs} />
+            </div>
           </HashRouter>
         </div>
       </MuiThemeProvider>
@@ -40,14 +44,16 @@ const App = props => {
 
 const Styles = {
   App: {
-    height: '100%'
-  },
-  tabs: {
-    height: '90%'
+    height: '100vh'
   },
   content: {
-    height: '10%',
-
+    height: '92%',
+  },
+  navigation: {
+    width: '100%',
+    height: '8%'
+  },
+  tabs: {
   }
 }
 

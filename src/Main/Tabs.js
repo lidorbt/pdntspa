@@ -6,11 +6,10 @@ import { Link, withRouter } from 'react-router-dom'
 
 const useStyles = makeStyles({
   root: {
+    bottom: 0,
+    position: 'fixed',
+    width: '100%'
   },
-  navLink: {
-    textDecoration: 'none',
-    color: 'inherit'
-  }
 });
 
 const MainTabs = (props) => {
@@ -19,17 +18,11 @@ const MainTabs = (props) => {
 
   return (
     <Paper square className={classes.root}>
-      <Tabs
-        centered
-        value={routes.findIndex(route => route.path === props.location.pathname)}
-      >
-
+      <Tabs centered value={`${props.location.pathname}`} variant="fullWidth" indicatorColor="secondary" textColor="secondary" >
         {routes.map((route, index) => {
-          return (<Link key={index} to={`${route.path}`} className={classes.navLink}>
-            <Tab label={route.title} value={index} icon={<Icon>{route.icon}</Icon>} />
-          </Link>)
+          return (
+            <Tab key={index} label={route.title} value={route.path} icon={<Icon>{route.icon}</Icon>} component={Link} to={`${route.path}`} />)
         })}
-
       </Tabs>
     </Paper>
   );

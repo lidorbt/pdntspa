@@ -1,9 +1,9 @@
 import React from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
+import Map from '../Map/Map';
 
-const chatComponent = () => (<div>Chat</div>)
-const mapComponent = () => (<div>Map</div>)
-const vrComponent = () => (<div>VR</div>)
+const chatComponent = () => (<div style={{ border: '1px red solid' }}>Chat</div>)
+const vrComponent = () => (<div style={{ border: '1px red solid' }}>VR</div>)
 
 export const routes = [
   {
@@ -16,7 +16,7 @@ export const routes = [
     path: '/Map',
     title: 'Map',
     icon: 'dashboard',
-    component: mapComponent,
+    component: Map,
   },
   {
     path: '/VR',

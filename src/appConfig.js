@@ -3,22 +3,22 @@ import { createMuiTheme } from '@material-ui/core/styles'
 export const theme = createMuiTheme({
   palette: {
     primary: {
-      light: '#fff',
+      // light: '#fff',
       main: '#fff',
-      dark: '#fff',
-      contrastText: '#fff',
+      // dark: '#fff',
+      // contrastText: '#fff',
     },
     secondary: {
-      light: '#fff',
-      main: '#fff',
-      dark: '#fff',
-      contrastText: '#fff',
+      // light: '#fff',
+      main: '#455A64',
+      // dark: '#fff',
+      // contrastText: '#fff',
     },
     error: {
-      light: '#fff',
-      main: '#fff',
-      dark: '#fff',
-      contrastText: '#fff',
+      // light: '#fff',
+      main: '#D32F2F',
+      // dark: '#fff',
+      // contrastText: '#fff',
     },
   },
   typography: {

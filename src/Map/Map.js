@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
+import { withStyles } from '@material-ui/core';
+import { width, height } from '@material-ui/system';
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
+
+const styles = (theme) => ({
+  map: {
+    width: '100%',
+    height: '100%'
+  }
+})
 
 class Map extends Component {
   static defaultProps = {
@@ -13,11 +22,13 @@ class Map extends Component {
   };
 
   render() {
+    const { classes } = this.props
+
     return (
       // Important! Always set the container height explicitly
-      <div style={{ height: '100vh', width: '100%' }}>
+      <div className={classes.map}>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: 'AIzaSyC5M0Hjn_nm0OzKVQlN2ZJcPjHtMqPt6yg' }}
+          bootstrapURLKeys={{ key: 'AIzaSyAiFGsLw67PFw-PUzV9MVaiuKhSdcM_GhQ' }}
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}>
           <AnyReactComponent
@@ -31,4 +42,4 @@ class Map extends Component {
   }
 }
 
-export default Map;
+export default withStyles(styles)(Map);
