@@ -27,19 +27,11 @@ class Map extends Component {
       savedPlaces: []
     }
     this.onClick = this.onClick.bind(this);
+    this.updateMyLoc();
   }
 
   componentDidMount(){
-    userApi.getAllUser().then((result) => {
-      const places = [];
-      const responseUsers = result.users;
-      for(let userId in responseUsers){
-          const data = responseUsers[userId];
-          places.push({data, "key": userId});
-      }
-  
-      this.setState({savedPlaces: places});
-    });
+    this.updateData();
   }
 
   render() {
@@ -72,6 +64,27 @@ class Map extends Component {
     const places = this.state.savedPlaces;
     places.push({data:{lat:t.lat, lng:t.lng}, key:t.lat*t.lng});
     this.setState({savedPlaces: places});
+  }
+
+  updateData(){
+    userApi.getAllUser().then((result) => {
+      const places = [];
+      const responseUsers = result.users;
+      for(let userId in responseUsers){
+          const data = responseUsers[userId];
+          places.push({data, "key": userId});
+      }
+  
+      this.setState({savedPlaces: places});
+    });
+  }
+
+  updateMyLoc(){
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition((position)=>{
+        userApi.updateMyLocation(position);
+      });
+    }
   }
 }
 

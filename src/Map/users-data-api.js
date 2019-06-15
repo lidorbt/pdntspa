@@ -21,3 +21,22 @@ export const getAllUser = async () => {
 
     return data;
 }
+
+export const updateMyLocation = async (position) => {
+    const USER_ID = '7bVl84qShGSWMhRW9a9F';
+    const response = await fetch(API_URL + '/' + USER_ID, {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {
+            'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify({
+            "lat": position.coords.latitude,
+            "lng": position.coords.longitube,
+            "isUser": true,
+            "title": "ofir elarat"
+        })
+    });
+
+    console.log(response);
+}
