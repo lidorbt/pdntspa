@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+
 import GoogleMapReact from 'google-map-react';
 import { withStyles } from '@material-ui/core';
 
 import * as userApi from './users-data-api';
 import Marker from './Marker';
+import AddPlaceDialog from './AddPlaceDialog';
 
 const styles = (theme) => ({
   map: {
@@ -24,7 +26,8 @@ class Map extends Component {
   constructor(){
     super();
     this.state = {
-      savedPlaces: []
+      savedPlaces: [],
+      isShown: false
     }
     this.onClick = this.onClick.bind(this);
     this.updateMyLoc();
@@ -56,6 +59,9 @@ class Map extends Component {
           onClick={this.onClick} >
             {placesMarkers}
         </GoogleMapReact>
+        <AddPlaceDialog isShown={this.state.isShown} 
+          onClose={this.onCloseDialog.bind(this)}
+          onSave={this.onSavePlace.bind(this)}/>
       </div>
     );
   }
@@ -63,7 +69,7 @@ class Map extends Component {
   onClick(t){
     const places = this.state.savedPlaces;
     places.push({data:{lat:t.lat, lng:t.lng}, key:t.lat*t.lng});
-    this.setState({savedPlaces: places});
+    this.setState({savedPlaces: places, isShown: true});
   }
 
   updateData(){
@@ -85,6 +91,14 @@ class Map extends Component {
         userApi.updateMyLocation(position);
       });
     }
+  }
+
+  onCloseDialog(){
+    this.setState({isShown:false});
+  }
+
+  onSavePlace(){
+    this.onCloseDialog();  
   }
 }
 
