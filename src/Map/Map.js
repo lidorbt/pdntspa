@@ -87,7 +87,9 @@ class Map extends Component {
   updateMyLoc(){
     if(navigator.geolocation){
       navigator.geolocation.getCurrentPosition((position)=>{
-        userApi.updateMyLocation(position);
+        userApi.updateMyLocation(position).then(response => {
+          this.updateData();          
+        });
       });
     }
   }

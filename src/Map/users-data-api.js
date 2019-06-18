@@ -32,13 +32,13 @@ export const updateMyLocation = async (position) => {
         },
         body: JSON.stringify({
             "lat": position.coords.latitude,
-            "lng": position.coords.longitube,
+            "lng": position.coords.longitude,
             "isUser": true,
             "title": "ofir elarat"
         })
     });
 
-    console.log(response);
+    return response;
 }
 
 export const AddPlace = async (title, lat, lng) => {
