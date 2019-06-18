@@ -1,78 +1,78 @@
-import React, { useState, useEffect } from 'react'
+import React, { Component } from 'react';
+//import logo from '../../images/logo.svg';
+import '../App.css';
+import Form from './Form.js';
+import firebase from 'firebase';
+//import firebaseConfig from '../../config';
 
-const Chat = () => {
-  const [nickname, setNickname] = useState("");
-  const [email, setEmail] = useState("");
-  const [joined, setJoined] = useState(false);
-  const [msg, setMsg] = useState("");
-  const [messages, setMessages] = useState({});
-
-  const chatRoom = db.ref().child('chatrooms').child('global');
-
-  useEffect(() => {
-    const handleNewMessages = snap => {
-      if (snap.val()) setMessages(snap.val());
-    }
-    chatRoom.on('value', handleNewMessages);
-    return () => {
-      chatRoom.off('value', handleNewMessages);
-    };
-  });
-
-  const handleNameChange = e => setNickname(e.target.value);
-  const handleEmailChange = e => setEmail(e.target.value);
-  const handleClick = e => {
-    db.ref().child('nicknames').push({
-      nickname,
-      email,
-    });
-    setJoined(true);
-  };
-
-  const handleMsgChange = e => setMsg(e.target.value);
-  const handleKeyDown = e => {
-    if (e.key === "Enter") {
-      chatRoom.push({
-        sender: nickname,
-        msg,
-      });
-      setMsg("");
-    }
-  };
-
-  return (
-    <div className="App">
-      {!joined ? (
-        <div className="joinForm">
-          <input placeholder="Nickname" value={nickname} onChange={handleNameChange} /><br />
-          <input placeholder="Email" value={email} onChange={handleEmailChange} /><br />
-          <button onClick={handleClick}>Join</button>
-        </div>
-      ) : (
-          <div className="chat">
-            <div className="messages">
-              {Object.keys(messages).map(message => {
-                if (messages[message]["sender"] === nickname)
-                  return (
-                    <div className="message">
-                      <span id="me">{messages[message]["sender"]} :</span><br />
-                      {messages[message]["msg"]}
-                    </div>
-                  );
-                else
-                  return (
-                    <div className="message">
-                      <span id="sender">{messages[message]["sender"]} :</span><br />
-                      {messages[message]["msg"]}
-                    </div>
-                  );
-              })}
-            </div>
-            <input placeholder="msg" onChange={handleMsgChange} onKeyDown={handleKeyDown} value={msg} /><br />
-          </div>
-        )}
-    </div>
-  );
+const firebaseConfig = {
+  apiKey: "AIzaSyATX9F6uqoaJcF04txbei6s7gLpZe5DHHA", //"AIzaSyAaODb7bCoZPvV4gdVyG_sV_Lc1_GuVdwg",
+  authDomain: "pdntspa-tira.firebaseapp.com", //"react-intro-37cd1.firebaseapp.com",
+  databaseURL: "https://pdntspa-tira.firebaseio.com" ,//"https://react-intro-37cd1.firebaseio.com",
+  projectId: "pdntspa-tira", //"react-intro-37cd1",
+  storageBucket: "pdntspa-tira.appspot.com", //"react-intro-37cd1.appspot.com",
+  messagingSenderId: "181293593583"
 }
 
-export default Chat;
+firebase.initializeApp(firebaseConfig);
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: null,
+    }
+  }
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged(user => {
+      this.setState({ user });
+    });
+  }
+  handleSignIn() {
+    let provider = new firebase.auth.GoogleAuthProvider();
+    let user;
+    provider.addScope('profile');
+    provider.addScope('email');
+    firebase.auth().signInWithPopup(provider).then(function(result) {
+      // This gives you a Google Access Token.
+      let token = result.credential.accessToken;
+      // The signed-in user info.
+      user = result.user;
+    }).then(() => {
+      this.setState({ user: user.displayName });
+    });
+  }
+  handleLogOut() {
+    firebase.auth().signOut();
+  }
+  render() {
+    return (
+      <div className="app">
+        <div className="app__header">
+
+          <h2>
+            SIMPLE APP WITH REACT
+          </h2>
+          { !this.state.user ? (
+            <button
+              className="app__button"
+              onClick={this.handleSignIn.bind(this)}
+            >
+              Sign in
+            </button>
+          ) : (
+            <button
+              className="app__button"
+              onClick={this.handleLogOut.bind(this)}
+            >
+              Logout
+            </button>
+          )}
+        </div>
+        <div className="app__list">
+          <Form user={this.state.user} />
+        </div>
+      </div>
+    );
+  }
+}
+export default App;

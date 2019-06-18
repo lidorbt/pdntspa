@@ -2,15 +2,14 @@ import React from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import Map from '../Map/Map';
 import VRVideo from '../VR/VRVideo';
-
-const chatComponent = () => (<div style={{ border: '1px red solid' }}>Chat</div>)
+import Chat from '../Chat/Chat';
 
 export const routes = [
   {
     path: '/Chat',
     title: 'Chat',
     icon: 'chat',
-    component: chatComponent,
+    component: Chat,
   },
   {
     path: '/Map',
