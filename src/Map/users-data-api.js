@@ -26,9 +26,9 @@ export const updateMyLocation = async (position) => {
     const USER_ID = '7bVl84qShGSWMhRW9a9F';
     const response = await fetch(API_URL + '/' + USER_ID, {
         method: 'PUT',
-        mode: 'cors',
         headers: {
-            'Access-Control-Allow-Origin': '*'
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
         },
         body: JSON.stringify({
             "lat": position.coords.latitude,
@@ -39,4 +39,22 @@ export const updateMyLocation = async (position) => {
     });
 
     console.log(response);
+}
+
+export const AddPlace = async (title, lat, lng) => {
+    const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            "lat": lat,
+            "lng": lng,
+            "isUser": false,
+            "title": title
+        })
+    });
+
+    return response;
 }

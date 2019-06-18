@@ -13,7 +13,7 @@ export default function FormDialog({isShown, onClose, onSave}) {
   }
 
   function handleSave(){
-    onSave();
+    onSave(document.getElementById("name").value);
   }
 
   return (

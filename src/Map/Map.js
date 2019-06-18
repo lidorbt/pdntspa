@@ -27,7 +27,8 @@ class Map extends Component {
     super();
     this.state = {
       savedPlaces: [],
-      isShown: false
+      isShown: false,
+      savingPlace: null
     }
     this.onClick = this.onClick.bind(this);
     this.updateMyLoc();
@@ -67,9 +68,7 @@ class Map extends Component {
   }
 
   onClick(t){
-    const places = this.state.savedPlaces;
-    places.push({data:{lat:t.lat, lng:t.lng}, key:t.lat*t.lng});
-    this.setState({savedPlaces: places, isShown: true});
+    this.setState({isShown: true, savingPlace: t});
   }
 
   updateData(){
@@ -97,8 +96,14 @@ class Map extends Component {
     this.setState({isShown:false});
   }
 
-  onSavePlace(){
-    this.onCloseDialog();  
+  onSavePlace(title){
+    this.onCloseDialog(); 
+    const {lat, lng} = this.state.savingPlace; 
+    userApi.AddPlace(title, lat, lng).then((response) => {
+        const places = this.state.savedPlaces;
+        places.push({data:{lat:lat, lng:lng, title}, key:lat*lng});
+        this.setState({savedPlaces: places});
+      });
   }
 }
 
