@@ -4,7 +4,7 @@ import Map from '../Map/Map';
 import VRVideo from '../VR/VRVideo';
 import Chat from '../Chat/Chat';
 import StreamTest from '../StreamTest/StreamTest';
-import Cam from '../Cam/Cam';
+import webrtcCam from '../Cam/webrtcCam';
 
 export const routes = [
   {
@@ -35,7 +35,7 @@ export const routes = [
     path: '/Cam',
     title: 'Camera',
     icon: 'camera',
-    component: Cam,
+    component: webrtcCam,
   },
 ]
 

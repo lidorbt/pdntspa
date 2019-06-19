@@ -5,33 +5,43 @@ export const CANVAS_HEIGHT = 480
 export const FPS = 75
 export const PORT = 3001
 
+// navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
 class Cam extends Component {
-  componentDidMount(){
-    let record;
-    const video = document.querySelector('#video-canvas')
+  constructor(props){
+    super(props)
 
-    // request access to webcam
-    // navigator.mediaDevices.getUserMedia({video: {width: CANVAS_WIDTH, height: CANVAS_HEIGHT}}).then(stream => record = stream)
-    navigator.mediaDevices.getUserMedia({ video: true }).then(stream => { record = stream})
-    const updateFrame = () => {
-      video.getContext('2d').drawImage(record, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
+    this.state = {
+      stream: undefined
     }
+  }
 
-    const WS_URL = window.location.origin.replace(/^https/, 'ws').replace(/^http/, 'ws').replace(/^https/, 'ws').replace('3000', PORT)
+  componentDidMount(){
+    const video = document.querySelector('#video-canvas')
+    
+    const WS_URL = window.location.origin.replace(/^https/, 'ws').replace(/^http/, 'ws').replace('3000', PORT)
     const ws = new WebSocket(WS_URL)
+
+    navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
+      if(!this.state.stream) this.setState({stream})
+      debugger
+      video.srcObject = stream;
+      video.onloadedmetadata = () => { video.play() }
+    })
+    
     ws.onopen = () => {
         console.log(`Connected to ${WS_URL}`)
         setInterval(() => {
-            ws.send(record)
-            updateFrame()
+            console.log(this.state.stream)
+            debugger
+            ws.send(video.srcObject)
         }, 1000 / FPS)
     }
   }
 
-
   render() {
     return (
-      <canvas id="video-canvas"></canvas>    
+      <video autoPlay id="video-canvas"></video>    
     )
   }
 }
