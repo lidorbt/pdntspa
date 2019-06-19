@@ -15,6 +15,7 @@
     "react-scripts": "3.0.1"
   },
   "scripts": {
+    "start-n": "react-scripts start",
     "start": "set HTTPS=true&&react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
