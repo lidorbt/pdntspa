@@ -21,14 +21,17 @@ export default class Form extends Component {
           const data = responseMessages[messagesId];
           messages.push({data, "key": messagesId});
       }
+
+
+      // let rawFile = new XMLHttpRequest();
+      // let myFile = rawFile.open('GET', require('D://Programming//Projects//Makeathon//pdntspa//src//Chat//try.txt'));
+      // console.log(myFile);
+      // messagesApi.uploadFile(myFile);
       
       this.setState({
-        list: messages,
-      });
-
-      this.state.list.map((item, index) => {
-          console.log(item);
-          console.log(index);
+        list: messages.sort((a, b) => {
+          return a.data.sentDate - b.data.sentDate;
+        }),
       });
     });
 
@@ -49,7 +52,18 @@ export default class Form extends Component {
     //     message: this.state.message,
     //   }
     //   this.messageRef.push(newItem);
-      messagesApi.sendMessage(this.state.userName, this.state.message)
+      let location;
+      if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition((position)=>{
+          location = position;
+        });
+      }
+
+      // fetch('D:\Programming\Projects\Makeathon\try').then(file => {
+      //   console.log(file);
+      //   messagesApi.uploadFile(file);
+      // });
+      messagesApi.sendMessage(this.state.userName, this.state.message, Date.now(), location, false);
       
       this.setState({ message: '' });
     }
@@ -58,6 +72,25 @@ export default class Form extends Component {
     if (event.key !== 'Enter') return;
     this.handleSend();
   }
+
+    filesUpload = (e) => {
+      let files = e.target.files;
+      let reader = new FileReader();
+      //reader.readAsDataURL(files[0]);
+      //messagesApi.uploadFile(files[0]);
+
+     let storageRef = firebase.storage().ref().child(files[0].name);
+     storageRef.put(files[0]);
+
+     messagesApi.sendMessage(this.state.userName, files[0].name, Date.now(), null, true);
+
+      // reader.onload = (e) => {
+      //   console.log(e);
+      //   messagesApi.uploadFile(e.target.result);
+      // }
+    };
+
+  
 //   listenMessages() {
 //     this.messageRef
 //       .limitToLast(10)
@@ -90,6 +123,7 @@ export default class Form extends Component {
           >
             send
           </button>
+          <input type="file" name="file" onChange={(e) =>this.filesUpload(e)}/>
         </div>
       </div>
     );
