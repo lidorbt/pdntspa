@@ -41,7 +41,7 @@ export const updateMyLocation = async (position) => {
     return response;
 }
 
-export const AddPlace = async (title, lat, lng) => {
+export const AddPlace = async (title, lat, lng,uploadFileName) => {
     const response = await fetch(API_URL, {
         method: 'POST',
         headers: {
@@ -52,7 +52,8 @@ export const AddPlace = async (title, lat, lng) => {
             "lat": lat,
             "lng": lng,
             "isUser": false,
-            "title": title
+            "title": title,
+            "fileName": uploadFileName
         })
     });
 
