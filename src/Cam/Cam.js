@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 
-export const CANVAS_WIDTH = 640
+export const CANVAS_WIDTH = 480
 export const CANVAS_HEIGHT = 480
-export const FPS = 75
+export const FPS = 10
 export const PORT = 3001
 
 // navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import{CANVAS_WIDTH, CANVAS_HEIGHT, PORT} from '../Cam/Cam.js'
+import{PORT} from '../Cam/Cam.js'
 
 class StreamTest extends Component {
 

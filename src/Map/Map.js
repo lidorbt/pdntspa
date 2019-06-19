@@ -7,6 +7,8 @@ import * as userApi from './users-data-api';
 import Marker from './Marker';
 import AddPlaceDialog from './AddPlaceDialog';
 
+import firebase from 'firebase';
+
 const styles = (theme) => ({
   map: {
     width: '100%',
@@ -47,7 +49,8 @@ class Map extends Component {
       lng={place.data.lng}
       text={place.data.title}
       key={place.key}
-      isUser={place.data.isUser} />  
+      isUser={place.data.isUser}
+      fileName={place.data.fileName} />  
   );
 
     return (
@@ -98,14 +101,16 @@ class Map extends Component {
     this.setState({isShown:false});
   }
 
-  onSavePlace(title){
+  onSavePlace(title, uploadFile){
     this.onCloseDialog(); 
     const {lat, lng} = this.state.savingPlace; 
-    userApi.AddPlace(title, lat, lng).then((response) => {
-        const places = this.state.savedPlaces;
-        places.push({data:{lat:lat, lng:lng, title}, key:lat*lng});
-        this.setState({savedPlaces: places});
-      });
+
+    let storageRef = firebase.storage().ref().child(uploadFile.name);
+    storageRef.put(uploadFile);
+
+    userApi.AddPlace(title, lat, lng, uploadFile.name).then((response) => {
+        this.updateData();
+    });
   }
 }
 
