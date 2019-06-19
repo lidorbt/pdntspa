@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import exampleVideo from '../Assets/360video.mp4'
 
 class VRVideo extends Component {
-  // componentDidMount() {
-  //   // var scene = document.querySelector("a-scene");
-  //   // var vid = document.querySelector("#video");
-  //   // if (scene.hasLoaded) {
-  //   //   vid.play()
-  //   // } else {
-  //   //   scene.addEventListener("loaded", () => { vid.play() });
-  //   // }
-
+  componentDidMount() {
+    var scene = document.querySelector("a-scene");
+    var vid = document.querySelector("#video");
+    if (scene.hasLoaded) {
+      vid.play()
+    } else {
+      scene.addEventListener("loaded", () => { vid.play() });
+    }
+  }
   //   const AFRAME = window.AFRAME
   //   AFRAME.registerComponent('cursor-listener', {
   //     init: () => {

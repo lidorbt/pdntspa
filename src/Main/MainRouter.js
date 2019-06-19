@@ -3,6 +3,8 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import Map from '../Map/Map';
 import VRVideo from '../VR/VRVideo';
 import Chat from '../Chat/Chat';
+import StreamTest from '../StreamTest/StreamTest';
+import Cam from '../Cam/Cam';
 
 export const routes = [
   {
@@ -22,6 +24,18 @@ export const routes = [
     title: 'VR',
     icon: 'cast',
     component: VRVideo,
+  },
+  {
+    path: '/Test',
+    title: 'StreamTest',
+    icon: 'test',
+    component: StreamTest,
+  },
+  {
+    path: '/Cam',
+    title: 'Camera',
+    icon: 'camera',
+    component: Cam,
   },
 ]
 
