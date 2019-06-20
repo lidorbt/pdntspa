@@ -23,7 +23,7 @@ class webrtcCam extends Component {
   }
 
   componentDidMount() {
-    this.validateSignIn()
+    // this.validateSignIn()
 
     // var enableRecordings = true;
     var connection = new RTCMultiConnection();

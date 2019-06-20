@@ -10,7 +10,7 @@ class VRStream extends Component {
   }
 
     componentDidMount(){
-      this.validateSignIn()
+      // this.validateSignIn()
     }
 
   validateSignIn = () => {

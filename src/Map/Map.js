@@ -54,7 +54,7 @@ class Map extends Component {
   }
 
   componentDidMount(){
-    this.validateSignIn()
+    // this.validateSignIn()
     
     this.updateData();
   }
