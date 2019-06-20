@@ -1,16 +1,16 @@
 import React, { Component, Fragment } from "react";
 import { withRouter } from "react-router-dom";
 import Swal from "sweetalert2";
+import VRStream from './VRStream'
 
-class VRStream extends Component {
+class VRStreamContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
 
   componentDidMount() {
-    this.validateSignIn();
-
+    // this.validateSignIn();
   }
 
   validateSignIn = () => {
@@ -33,9 +33,9 @@ class VRStream extends Component {
   render() {
     return (
       <Fragment>
-        <VRStream broadcasters={['abc']}/>
+        <VRStream {...this.props} broadcasters={['abc']}/>
       </Fragment>
     );
   }
 }
-export default withRouter(VRStream);
+export default withRouter(VRStreamContainer);

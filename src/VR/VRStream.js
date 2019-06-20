@@ -66,7 +66,7 @@ class VRStream extends Component {
       });
     });
 
-    var videoPreview = document.getElementById("video-preview");
+    var videoPreview = document.getElementById("stream1");
     connection.onstream = function(event) {
       if (connection.isInitiator && event.type !== "local") {
         return;
@@ -219,34 +219,9 @@ class VRStream extends Component {
         <a-scene canvas="" keyboard-shortcuts="" vr-mode-ui="">
           <a-assets>
             <img id="stream-gallery" alt="123" src={sample} />
-            <video 
+            <video
               id="stream1"
               preload="auto"
-              src="https://s3-us-west-1.amazonaws.com/www.rickroulette.com/rickroll.mp4"
-              loop
-              autoPlay
-              width="160"
-              height="90"
-              controls=""
-              crossorigin="true"
-              webkit-playsinline=""
-            />
-            <video
-              id="stream2"
-              preload="auto"
-              src="https://s3-us-west-1.amazonaws.com/www.rickroulette.com/rickroll.mp4"
-              loop
-              autoPlay
-              width="160"
-              height="90"
-              controls=""
-              crossorigin="true"
-              webkit-playsinline=""
-            />
-            <video
-              id="stream3"
-              preload="auto"
-              src="https://s3-us-west-1.amazonaws.com/www.rickroulette.com/rickroll.mp4"
               loop
               autoPlay
               width="160"
@@ -310,50 +285,17 @@ class VRStream extends Component {
             visible=""
           />
 
-          <a-cylinder
-            position="0 0 0"
-            radius="1"
-            height="1"
-            color="#7BC8A4"
-            material=""
-            geometry=""
-            rotation=""
-            scale=""
-            visible=""
-          />
-
-          <a-entity
+<a-entity
             data-video-source="stream1"
-            class="soccer-video"
-            geometry="primitive: plane; width: 28.4; height: 16;"
-            position="-35 11 -60"
-            rotation="0 35 0"
-            material="color: #FFFFFF; shader: flat; src: #stream1"
-            scale=""
-            visible=""
-          />
-          <a-entity
-            data-video-source="stream2"
             class="soccer-video"
             geometry="primitive: plane; width: 28.4; height: 16;"
             position="0 11 -68"
             rotation="0 0 0"
-            material="color: #FFFFFF; shader: flat; src: #stream2"
+            material="color: #FFFFFF; shader: flat; src: #stream1"
             scale=""
             visible=""
           />
-          <a-entity
-            data-video-source="stream3"
-            class="soccer-video"
-            geometry="primitive: plane; width: 28.4; height: 16;"
-            position="35 11 -60"
-            rotation="0 -35 0"
-            material="color: #FFFFFF; shader: flat; src: #stream3"
-            scale=""
-            visible=""
-          />
-          {/* <a-entity light="" data-aframe-default-light="" position="" rotation="" scale="" visible=""></a-entity>
-          <a-entity light="" position="" data-aframe-default-light="" rotation="" scale="" visible=""></a-entity> */}
+
         </a-scene>
       </Fragment>
     );

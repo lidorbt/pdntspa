@@ -269,7 +269,7 @@ class webrtcCam extends Component {
         <section class="make-center">
           <div style={{margin: '0', padding: '0', paddingBottom: '20px'}}>
             <div class="make-center">
-              <input type="text" value='abc' id="broadcast-id" autocorrect="off" autocapitalize="off" size="20" />
+              <input type="text" id="broadcast-id" autocorrect="off" autocapitalize="off" size="20" />
               <button id="open">Open or Join Broadcast</button>
             </div>
             <div class="make-center" id="broadcast-viewers-counter" />
