@@ -22,6 +22,8 @@ class webrtcCam extends Component {
     }
   }
 
+  
+
   componentDidMount() {
     this.validateSignIn()
 
@@ -44,14 +46,13 @@ class webrtcCam extends Component {
       });
 
       socket.on("join-broadcaster", function(hintsToJoinBroadcast) {
-        console.log("join-broadcaster", hintsToJoinBroadcast);
-        connection.session = hintsToJoinBroadcast.typeOfStreams;
-        connection.sdpConstraints.mandatory = {
-          OfferToReceiveVideo: !!connection.session.video,
-          OfferToReceiveAudio: !!connection.session.audio
-        };
-        connection.broadcastId = hintsToJoinBroadcast.broadcastId;
-        connection.join(hintsToJoinBroadcast.userid);
+        Swal.fire({
+          title: `Broadcast ID is already taken`,
+          text: `Broadcast ID is already taken, please try again later`,
+          type: 'error',
+          confirmButtonColor: '#e72900',
+          confirmButtonText: 'Ok'
+        })  
       });
 
       socket.on("rejoin-broadcast", function(broadcastId) {
@@ -89,7 +90,7 @@ class webrtcCam extends Component {
     });
 
     window.onbeforeunload = function() {
-      document.getElementById("open-or-join").disabled = false;
+      document.getElementById("open").disabled = false;
     };
 
     var videoPreview = document.getElementById("video-preview");
@@ -155,14 +156,14 @@ class webrtcCam extends Component {
     // ask node.js server to look for a broadcast
     // if broadcast is available, simply join it. i.e. "join-broadcaster" event should be emitted.
     // if broadcast is absent, simply create it. i.e. "start-broadcasting" event should be fired.
-    document.getElementById("open-or-join").onclick = function() {
+    document.getElementById("open").onclick = function() {
       var broadcastId = document.getElementById("broadcast-id").value;
       if (broadcastId.replace(/^\s+|\s+$/g, "").length <= 0) {
         alert("Please enter broadcast-id");
         document.getElementById("broadcast-id").focus();
         return;
       }
-      document.getElementById("open-or-join").disabled = true;
+      document.getElementById("open").disabled = true;
       connection.extra.broadcastId = broadcastId;
       connection.session = {
         audio: true,
@@ -268,8 +269,8 @@ class webrtcCam extends Component {
         <section class="make-center">
           <div style={{margin: '0', padding: '0', paddingBottom: '20px'}}>
             <div class="make-center">
-              <input type="text" id="broadcast-id" autocorrect="off" autocapitalize="off" size="20" />
-              <button id="open-or-join">Open or Join Broadcast</button>
+              <input type="text" value='abc' id="broadcast-id" autocorrect="off" autocapitalize="off" size="20" />
+              <button id="open">Open or Join Broadcast</button>
             </div>
             <div class="make-center" id="broadcast-viewers-counter" />
           </div>
