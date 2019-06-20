@@ -5,7 +5,7 @@ import RTCMultiConnection from "rtcmulticonnection";
 
 class webrtcCam extends Component {
   componentDidMount() {
-    var enableRecordings = true;
+    // var enableRecordings = true;
     var connection = new RTCMultiConnection();
     connection.enableScalableBroadcast = true;
     connection.maxRelayLimitPerUser = 1;

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import Map from '../Map/Map';
-import VRVideo from '../VR/VRVideo';
+import VRStream from '../VR/VRStream';
 import Chat from '../Chat/Chat';
 import StreamTest from '../StreamTest/StreamTest';
 import webrtcCam from '../Cam/webrtcCam';
@@ -23,13 +23,7 @@ export const routes = [
     path: '/VR',
     title: 'VR',
     icon: 'cast',
-    component: VRVideo,
-  },
-  {
-    path: '/Test',
-    title: 'StreamTest',
-    icon: 'test',
-    component: StreamTest,
+    component: VRStream,
   },
   {
     path: '/Cam',
