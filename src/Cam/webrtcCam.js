@@ -1,10 +1,30 @@
 import React, { Component } from "react";
 import "./stam.css";
 import RTCMultiConnection from "rtcmulticonnection";
-// import RecordRTC from "../Assets/Scripts/RecordRTC.js";
+import Swal from 'sweetalert2'
+import { withRouter } from 'react-router-dom';
 
 class webrtcCam extends Component {
+  validateSignIn = () => {
+    if(!sessionStorage.getItem('CurrentUser')){
+      Swal.fire({
+        title: 'You have to sign in',
+        text: "You have to sign in",
+        type: 'error',
+        confirmButtonColor: '#e72900',
+        confirmButtonText: 'Ok'
+      }).then((result) => {
+        let { history } = this.props;
+        history.push({
+         pathname: '/somepage',
+        });
+      })
+    }
+  }
+
   componentDidMount() {
+    this.validateSignIn()
+
     // var enableRecordings = true;
     var connection = new RTCMultiConnection();
     connection.enableScalableBroadcast = true;
@@ -262,4 +282,4 @@ class webrtcCam extends Component {
   }
 }
 
-export default webrtcCam;
+export default withRouter(webrtcCam);

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-
+import { withRouter } from 'react-router-dom';
 import GoogleMapReact from 'google-map-react';
 import { withStyles } from '@material-ui/core';
-
+import Swal from 'sweetalert2'
 import * as userApi from './users-data-api';
 import Marker from './Marker';
 import AddPlaceDialog from './AddPlaceDialog';
@@ -36,7 +36,26 @@ class Map extends Component {
     this.updateMyLoc();
   }
 
+  validateSignIn = () => {
+    if(!sessionStorage.getItem('CurrentUser')){
+      Swal.fire({
+        title: 'You have to sign in',
+        text: "You have to sign in",
+        type: 'error',
+        confirmButtonColor: '#e72900',
+        confirmButtonText: 'Ok'
+      }).then((result) => {
+        let { history } = this.props;
+        history.push({
+         pathname: '/somepage',
+        });
+      })
+    }
+  }
+
   componentDidMount(){
+    this.validateSignIn()
+    
     this.updateData();
   }
 
@@ -114,4 +133,4 @@ class Map extends Component {
   }
 }
 
-export default withStyles(styles)(Map);
+export default withRouter(withStyles(styles)(Map));

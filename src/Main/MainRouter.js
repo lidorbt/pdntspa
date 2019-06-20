@@ -3,7 +3,6 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import Map from '../Map/Map';
 import VRStream from '../VR/VRStream';
 import Chat from '../Chat/Chat';
-import StreamTest from '../StreamTest/StreamTest';
 import webrtcCam from '../Cam/webrtcCam';
 
 export const routes = [

@@ -5,7 +5,7 @@ import Form from './Form.js';
 import firebase from 'firebase';
 //import firebaseConfig from '../../config';
 
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyATX9F6uqoaJcF04txbei6s7gLpZe5DHHA", //"AIzaSyAaODb7bCoZPvV4gdVyG_sV_Lc1_GuVdwg",
   authDomain: "pdntspa-tira.firebaseapp.com", //"react-intro-37cd1.firebaseapp.com",
   databaseURL: "https://pdntspa-tira.firebaseio.com" ,//"https://react-intro-37cd1.firebaseio.com",
@@ -15,6 +15,7 @@ const firebaseConfig = {
 }
 
 firebase.initializeApp(firebaseConfig);
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -27,7 +28,7 @@ class App extends Component {
       this.setState({ user });
     });
   }
-  handleSignIn() {
+  handleSignIn = () => {
     let provider = new firebase.auth.GoogleAuthProvider();
     let user;
     provider.addScope('profile');
@@ -37,13 +38,16 @@ class App extends Component {
       let token = result.credential.accessToken;
       // The signed-in user info.
       user = result.user;
+      sessionStorage.setItem('CurrentUser', {token, user});
     }).then(() => {
       this.setState({ user: user.displayName });
     });
   }
-  handleLogOut() {
+  handleLogOut = () => {
     firebase.auth().signOut();
+    sessionStorage.removeItem('CurrentUser')
   }
+  
   render() {
     return (
       <div className="app">
@@ -55,14 +59,14 @@ class App extends Component {
           { !this.state.user ? (
             <button
               className="app__button"
-              onClick={this.handleSignIn.bind(this)}
+              onClick={this.handleSignIn}
             >
               Sign in
             </button>
           ) : (
             <button
               className="app__button"
-              onClick={this.handleLogOut.bind(this)}
+              onClick={this.handleLogOut}
             >
               Logout
             </button>
