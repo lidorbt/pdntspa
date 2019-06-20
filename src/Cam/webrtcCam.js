@@ -32,7 +32,7 @@ class webrtcCam extends Component {
     connection.enableScalableBroadcast = true;
     connection.maxRelayLimitPerUser = 1;
     connection.autoCloseEntireSession = true;
-    connection.socketURL = 'https://10.118.109.136:9005/'
+    connection.socketURL = 'https://10.118.109.136:9001/'
     // connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
     connection.socketMessageEvent = "scalable-media-broadcast-demo";
 

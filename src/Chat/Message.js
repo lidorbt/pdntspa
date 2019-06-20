@@ -37,7 +37,7 @@ export default class Message extends Component {
     return (
       <div className="message">
         <span className="message__author">
-            {this.props.message.data.userName}:
+            {this.props.message.data.userName? this.props.message.data.userName : 'Guest' }:
         </span>
         {this.props.message.data.isFile ? (<a href={this.state.url}>{this.props.message.data.message}</a>) : (this.props.message.data.message)}
       </div>
