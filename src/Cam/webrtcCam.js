@@ -56,21 +56,13 @@ class webrtcCam extends Component {
       });
 
       socket.on("rejoin-broadcast", function(broadcastId) {
-        console.log("rejoin-broadcast", broadcastId);
-        connection.attachStreams = [];
-        socket.emit("check-broadcast-presence", broadcastId, function(
-          isBroadcastExists
-        ) {
-          if (!isBroadcastExists) {
-            // the first person (i.e. real-broadcaster) MUST set his user-id
-            connection.userid = broadcastId;
-          }
-          socket.emit("join-broadcast", {
-            broadcastId: broadcastId,
-            userid: connection.userid,
-            typeOfStreams: connection.session
-          });
-        });
+        Swal.fire({
+          title: `Broadcast ID is already taken`,
+          text: `Broadcast ID is already taken, please try again later`,
+          type: 'error',
+          confirmButtonColor: '#e72900',
+          confirmButtonText: 'Ok'
+        })  
       });
 
       socket.on("broadcast-stopped", function(broadcastId) {
