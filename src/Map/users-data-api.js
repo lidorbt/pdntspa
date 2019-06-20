@@ -22,7 +22,7 @@ export const getAllUser = async () => {
     return data;
 }
 
-export const updateMyLocation = async (position) => {
+export const updateMyLocation = async (position, data) => {
     const USER_ID = '7bVl84qShGSWMhRW9a9F';
     const response = await fetch(API_URL + '/' + USER_ID, {
         method: 'PUT',
@@ -34,7 +34,27 @@ export const updateMyLocation = async (position) => {
             "lat": position.coords.latitude,
             "lng": position.coords.longitude,
             "isUser": true,
-            "title": "ofir elarat"
+            "title": data.title,
+            "userName": data.userName
+        })
+    });
+
+    return response;
+}
+
+export const insertNewUser = async (position, userName) => {
+    const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            "lat": position.coords.latitude,
+            "lng": position.coords.longitude,
+            "isUser": true,
+            "title": userName,
+            "userName": userName
         })
     });
 

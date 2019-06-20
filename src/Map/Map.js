@@ -107,12 +107,21 @@ class Map extends Component {
   }
 
   updateMyLoc(){
-    if(navigator.geolocation){
-      navigator.geolocation.getCurrentPosition((position)=>{
-        userApi.updateMyLocation(position).then(response => {
-          this.updateData();          
+    if(window.localStorage.getItem("userName")){
+      if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition((position)=>{
+          const logedUser = this.state.savedPlaces.find((x) => x.data.userName === window.localStorage.getItem("userName"))
+          if(logedUser){
+            userApi.updateMyLocation(position,logedUser.key).then(response => {
+              this.updateData();          
+            });
+          }else{
+            userApi.insertNewUser(position, window.localStorage.getItem("userName")).then(response => {
+              this.updateData();          
+            });
+          }
         });
-      });
+      }
     }
   }
 
